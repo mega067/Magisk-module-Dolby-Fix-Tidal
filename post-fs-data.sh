@@ -36,10 +36,32 @@ chmod 644 $MODDIR/system/vendor/lib64/libaudioroute-v34.so
 
 # Workaround for libstagefright_foundation-v33.so (Required by dms-service)
 # We map the system's current libstagefright_foundation.so to the v33 name.
-# This assumes ABI compatibility or at least sufficiency for dms loading.
 touch $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
 chmod 644 $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
 touch $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
 chmod 644 $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
 
-echo "Dolby Fix Module: permissions and dummy files set for Android 15 binaries" >> /cache/magisk_dolby_fix.log
+# CRITICAL: Mount NOW in post-fs-data so the service sees it immediately on start
+# 64-bit mount
+if [ -f /system/lib64/libstagefright_foundation.so ]; then
+    mount -o bind /system/lib64/libstagefright_foundation.so $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+elif [ -f /vendor/lib64/libstagefright_foundation.so ]; then
+    mount -o bind /vendor/lib64/libstagefright_foundation.so $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+fi
+
+# 32-bit mount
+if [ -f /system/lib/libstagefright_foundation.so ]; then
+    mount -o bind /system/lib/libstagefright_foundation.so $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
+elif [ -f /vendor/lib/libstagefright_foundation.so ]; then
+    mount -o bind /vendor/lib/libstagefright_foundation.so $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
+fi
+
+# Also mount libaudioroute-v34 here
+if [ -f /vendor/lib/libaudioroute.so ]; then
+    mount -o bind /vendor/lib/libaudioroute.so $MODDIR/system/vendor/lib/libaudioroute-v34.so
+fi
+if [ -f /vendor/lib64/libaudioroute.so ]; then
+    mount -o bind /vendor/lib64/libaudioroute.so $MODDIR/system/vendor/lib64/libaudioroute-v34.so
+fi
+
+echo "Dolby Fix Module: permissions, dummy files AND MOUNTS set in post-fs-data" >> /cache/magisk_dolby_fix.log

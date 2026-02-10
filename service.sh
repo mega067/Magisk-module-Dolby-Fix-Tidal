@@ -17,46 +17,9 @@ else
   echo "Dolby Fix Module: /vendor/etc/media_codecs_dolby_audio.xml NOT found" >> /cache/magisk_dolby_fix.log
 fi
 
-# Fix missing libaudioroute-v34.so (Workaround)
-# Bind mount system/vendor libaudioroute.so to our dummy v34 file
-if [ -f /vendor/lib/libaudioroute.so ]; then
-    mount -o bind /vendor/lib/libaudioroute.so $MODDIR/system/vendor/lib/libaudioroute-v34.so
-fi
-if [ -f /vendor/lib64/libaudioroute.so ]; then
-    mount -o bind /vendor/lib64/libaudioroute.so $MODDIR/system/vendor/lib64/libaudioroute-v34.so
-fi
-
-# Fix missing libstagefright_foundation-v33.so (Workaround)
-# Bind mount system libstagefright_foundation.so to our dummy v33 file
-# Try finding it in system/lib64 or vendor/lib64
-STAGEFRIGHT_LIB=""
-if [ -f /system/lib64/libstagefright_foundation.so ]; then
-    STAGEFRIGHT_LIB="/system/lib64/libstagefright_foundation.so"
-elif [ -f /vendor/lib64/libstagefright_foundation.so ]; then
-    STAGEFRIGHT_LIB="/vendor/lib64/libstagefright_foundation.so"
-fi
-
-if [ ! -z "$STAGEFRIGHT_LIB" ]; then
-    mount -o bind "$STAGEFRIGHT_LIB" $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
-    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB to libstagefright_foundation-v33.so (64-bit)" >> /cache/magisk_dolby_fix.log
-else
-    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so (64-bit) NOT FOUND" >> /cache/magisk_dolby_fix.log
-fi
-
-# 32-bit workaround
-STAGEFRIGHT_LIB_32=""
-if [ -f /system/lib/libstagefright_foundation.so ]; then
-    STAGEFRIGHT_LIB_32="/system/lib/libstagefright_foundation.so"
-elif [ -f /vendor/lib/libstagefright_foundation.so ]; then
-    STAGEFRIGHT_LIB_32="/vendor/lib/libstagefright_foundation.so"
-fi
-
-if [ ! -z "$STAGEFRIGHT_LIB_32" ]; then
-    mount -o bind "$STAGEFRIGHT_LIB_32" $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
-    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB_32 to libstagefright_foundation-v33.so (32-bit)" >> /cache/magisk_dolby_fix.log
-else
-    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so (32-bit) NOT FOUND" >> /cache/magisk_dolby_fix.log
-fi
+# Mounts moved to post-fs-data.sh to ensure availability before HAL start
+# Just logging here
+echo "Dolby Fix Module: Service script running..." >> /cache/magisk_dolby_fix.log
 
 # Restart Audioserver to load new configs
 # Usually not needed if module is installed via Magisk (reboot required anyway), 
