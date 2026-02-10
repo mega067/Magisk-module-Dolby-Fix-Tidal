@@ -18,4 +18,8 @@ chmod 644 $MODDIR/system/vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
 chmod 644 $MODDIR/system/vendor/lib64/vendor.dolby.hardware.dms@2.0.so
 chmod 644 $MODDIR/system/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
 
+# Create dummy file for libaudioroute-v34.so if not exists, so we can mount over it later
+touch $MODDIR/system/vendor/lib/libaudioroute-v34.so
+chmod 644 $MODDIR/system/vendor/lib/libaudioroute-v34.so
+
 echo "Dolby Fix Module: permissions set for Android 15 binaries" >> /cache/magisk_dolby_fix.log
