@@ -16,7 +16,17 @@ chmod 644 $MODDIR/system/vendor/lib/libhdmipassthru.so
 chmod 644 $MODDIR/system/vendor/lib/libssrec.so
 chmod 644 $MODDIR/system/vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
 chmod 644 $MODDIR/system/vendor/lib64/vendor.dolby.hardware.dms@2.0.so
+chmod 644 $MODDIR/system/vendor/lib64/vendor.dolby.hardware.dms@2.0.so
 chmod 644 $MODDIR/system/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
+chmod 644 $MODDIR/system/vendor/lib/libstagefright_soft_ac4dec.so
+chmod 644 $MODDIR/system/vendor/lib/libstagefright_soft_ddpdec.so
+chmod 644 $MODDIR/system/vendor/lib/libdapparamstorage.so
+chmod 644 $MODDIR/system/vendor/lib/libdeccfg.so
+chmod 644 $MODDIR/system/vendor/lib/soundfx/libswdap.so
+chmod 644 $MODDIR/system/vendor/lib/soundfx/libswgamedap.so
+chmod 644 $MODDIR/system/vendor/lib/soundfx/libswvqe.so
+chmod 644 $MODDIR/system/vendor/lib64/libdapparamstorage.so
+chmod 644 $MODDIR/system/vendor/lib64/libdlbdsservice.so
 
 # Create dummy file for libaudioroute-v34.so if not exists, so we can mount over it later
 touch $MODDIR/system/vendor/lib/libaudioroute-v34.so
