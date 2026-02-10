@@ -1,6 +1,6 @@
 id=dolby-fix-sm8150
 name=Dolby Atmos Fix for SM8150 (Tidal/Apple Music)
-version=v1.1-fix
-versionCode=2
+version=v1.2-android15
+versionCode=3
 author=Antigravity & User
 description=Enables Dolby Atmos support by adding required system properties and media codec configurations. Fixes detection in Tidal and Apple Music.
