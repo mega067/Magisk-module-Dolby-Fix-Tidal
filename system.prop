@@ -2,5 +2,4 @@
 ro.vendor.audio.dolby.dax.support=true
 persist.vendor.audio.delta.refresh=true
 ro.vendor.audio.dolby.surround.enable=true
-persist.vendor.audio.misound.disable=true
-ro.vendor.audio.misound.bluetooth.enable=true
+
