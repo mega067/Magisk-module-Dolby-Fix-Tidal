@@ -18,9 +18,29 @@ else
 fi
 
 # Fix missing libaudioroute-v34.so (Workaround)
-if [ ! -f /vendor/lib/libaudioroute-v34.so ] && [ -f /vendor/lib/libaudioroute.so ]; then
-    mount -o bind /vendor/lib/libaudioroute.so /vendor/lib/libaudioroute-v34.so
-    echo "Dolby Fix Module: Bind mounted libaudioroute.so to libaudioroute-v34.so" >> /cache/magisk_dolby_fix.log
+# Bind mount system/vendor libaudioroute.so to our dummy v34 file
+if [ -f /vendor/lib/libaudioroute.so ]; then
+    mount -o bind /vendor/lib/libaudioroute.so $MODDIR/system/vendor/lib/libaudioroute-v34.so
+fi
+if [ -f /vendor/lib64/libaudioroute.so ]; then
+    mount -o bind /vendor/lib64/libaudioroute.so $MODDIR/system/vendor/lib64/libaudioroute-v34.so
+fi
+
+# Fix missing libstagefright_foundation-v33.so (Workaround)
+# Bind mount system libstagefright_foundation.so to our dummy v33 file
+# Try finding it in system/lib64 or vendor/lib64
+STAGEFRIGHT_LIB=""
+if [ -f /system/lib64/libstagefright_foundation.so ]; then
+    STAGEFRIGHT_LIB="/system/lib64/libstagefright_foundation.so"
+elif [ -f /vendor/lib64/libstagefright_foundation.so ]; then
+    STAGEFRIGHT_LIB="/vendor/lib64/libstagefright_foundation.so"
+fi
+
+if [ ! -z "$STAGEFRIGHT_LIB" ]; then
+    mount -o bind "$STAGEFRIGHT_LIB" $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB to libstagefright_foundation-v33.so" >> /cache/magisk_dolby_fix.log
+else
+    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so NOT FOUND" >> /cache/magisk_dolby_fix.log
 fi
 
 # Restart Audioserver to load new configs

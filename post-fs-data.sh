@@ -31,5 +31,13 @@ chmod 644 $MODDIR/system/vendor/lib64/libdlbdsservice.so
 # Create dummy file for libaudioroute-v34.so if not exists, so we can mount over it later
 touch $MODDIR/system/vendor/lib/libaudioroute-v34.so
 chmod 644 $MODDIR/system/vendor/lib/libaudioroute-v34.so
+touch $MODDIR/system/vendor/lib64/libaudioroute-v34.so
+chmod 644 $MODDIR/system/vendor/lib64/libaudioroute-v34.so
 
-echo "Dolby Fix Module: permissions set for Android 15 binaries" >> /cache/magisk_dolby_fix.log
+# Workaround for libstagefright_foundation-v33.so (Required by dms-service)
+# We map the system's current libstagefright_foundation.so to the v33 name.
+# This assumes ABI compatibility or at least sufficiency for dms loading.
+touch $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+chmod 644 $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+
+echo "Dolby Fix Module: permissions and dummy files set for Android 15 binaries" >> /cache/magisk_dolby_fix.log
