@@ -39,5 +39,7 @@ chmod 644 $MODDIR/system/vendor/lib64/libaudioroute-v34.so
 # This assumes ABI compatibility or at least sufficiency for dms loading.
 touch $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
 chmod 644 $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
+touch $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
+chmod 644 $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
 
 echo "Dolby Fix Module: permissions and dummy files set for Android 15 binaries" >> /cache/magisk_dolby_fix.log

@@ -38,9 +38,24 @@ fi
 
 if [ ! -z "$STAGEFRIGHT_LIB" ]; then
     mount -o bind "$STAGEFRIGHT_LIB" $MODDIR/system/vendor/lib64/libstagefright_foundation-v33.so
-    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB to libstagefright_foundation-v33.so" >> /cache/magisk_dolby_fix.log
+    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB to libstagefright_foundation-v33.so (64-bit)" >> /cache/magisk_dolby_fix.log
 else
-    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so NOT FOUND" >> /cache/magisk_dolby_fix.log
+    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so (64-bit) NOT FOUND" >> /cache/magisk_dolby_fix.log
+fi
+
+# 32-bit workaround
+STAGEFRIGHT_LIB_32=""
+if [ -f /system/lib/libstagefright_foundation.so ]; then
+    STAGEFRIGHT_LIB_32="/system/lib/libstagefright_foundation.so"
+elif [ -f /vendor/lib/libstagefright_foundation.so ]; then
+    STAGEFRIGHT_LIB_32="/vendor/lib/libstagefright_foundation.so"
+fi
+
+if [ ! -z "$STAGEFRIGHT_LIB_32" ]; then
+    mount -o bind "$STAGEFRIGHT_LIB_32" $MODDIR/system/vendor/lib/libstagefright_foundation-v33.so
+    echo "Dolby Fix Module: Bind mounted $STAGEFRIGHT_LIB_32 to libstagefright_foundation-v33.so (32-bit)" >> /cache/magisk_dolby_fix.log
+else
+    echo "Dolby Fix Module: CRITICAL - libstagefright_foundation.so (32-bit) NOT FOUND" >> /cache/magisk_dolby_fix.log
 fi
 
 # Restart Audioserver to load new configs
