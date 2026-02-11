@@ -10,4 +10,4 @@ while [ "$(getprop sys.boot_completed)" != "1" ]; do
 done
 
 # Restart audio service if needed to apply changes (optional, safe to have)
-# killall audioserver
+killall audioserver
