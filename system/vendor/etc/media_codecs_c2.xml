@@ -237,6 +237,25 @@
             <Feature name="secure-playback" required="true" />
             <Feature name="can-swap-width-height" value="1" />
         </MediaCodec>
+        <!-- Dolby Codecs -->
+        <MediaCodec name="c2.dolby.client.ac4.decoder" type="audio/ac4">
+            <Limit name="channel-count" max="16" />
+            <Limit name="sample-rate" ranges="32000,44100,48000" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+        <MediaCodec name="c2.dolby.client.eac3.decoder" type="audio/eac3">
+            <Limit name="channel-count" max="16" />
+            <Limit name="sample-rate" ranges="32000,44100,48000" />
+            <Limit name="bitrate" range="1-10000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+        <MediaCodec name="c2.dolby.client.eac3-joc.decoder" type="audio/eac3-joc">
+             <Limit name="channel-count" max="16" />
+             <Limit name="sample-rate" ranges="32000,44100,48000" />
+             <Limit name="bitrate" range="1-10000000" />
+             <Feature name="adaptive-playback" />
+        </MediaCodec>
     </Decoders>
 
     <Encoders>
