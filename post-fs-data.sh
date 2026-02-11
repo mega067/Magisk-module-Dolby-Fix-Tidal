@@ -64,4 +64,10 @@ if [ -f /vendor/lib64/libaudioroute.so ]; then
     mount -o bind /vendor/lib64/libaudioroute.so $MODDIR/system/vendor/lib64/libaudioroute-v34.so
 fi
 
+# Force mount media_codecs_c2.xml because Magisk overlay is failing for this file
+if [ -f $MODDIR/system/vendor/etc/media_codecs_c2.xml ]; then
+    mount -o bind $MODDIR/system/vendor/etc/media_codecs_c2.xml /vendor/etc/media_codecs_c2.xml
+    echo "Dolby Fix Module: Forced bind mount of media_codecs_c2.xml" >> /cache/magisk_dolby_fix.log
+fi
+
 echo "Dolby Fix Module: permissions, dummy files AND MOUNTS set in post-fs-data" >> /cache/magisk_dolby_fix.log
