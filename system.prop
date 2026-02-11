@@ -1,5 +1,11 @@
-# Dolby Atmos Properties
-ro.vendor.audio.dolby.dax.support=true
-persist.vendor.audio.delta.refresh=true
-ro.vendor.audio.dolby.surround.enable=true
+# System Properties for Dolby Support
+# Verify and adjust based on device-specific needs
 
+# Enable Dolby Service
+ro.vendor.audio.dolby.ds2.enabled=true
+ro.vendor.audio.dolby.dax.support=true
+
+# Spoof Samsung device (common trick for Tidal Dolby)
+# ro.product.brand=Samsung
+# ro.product.manufacturer=Samsung
+# ro.product.model=SM-S908B
